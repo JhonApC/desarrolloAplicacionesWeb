@@ -12,44 +12,39 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.poli.proyecto.model.PersonaModel;
-import co.edu.poli.proyecto.model.TrabajosModel;
-import co.edu.poli.proyecto.services.PersonaImpl;
+import co.edu.poli.proyecto.model.CalificacionesModel;
+import co.edu.poli.proyecto.services.CalificacionesImpl;
 
 @RestController
-@RequestMapping("persona")
-public class PersonaController {
+@RequestMapping("calificaciones")
+public class CalificacionesController {
 
 	@Autowired
-	private PersonaImpl service;
+	private CalificacionesImpl service;
 
 	@GetMapping("findAll")
-	public List<PersonaModel> findAll() {
+	public List<CalificacionesModel> findAll() {
 		return this.service.findAll();
 	}
 
 	@GetMapping("findById")
-	public PersonaModel findById(@RequestHeader(required = true) Integer id) {
+	public CalificacionesModel findById(@RequestHeader(required = true) Integer id) {
 		return this.service.findById(id);
 	}
 
 	@PostMapping("save")
-	public PersonaModel save(@RequestBody PersonaModel entity) {
-		entity.getTrabajos().forEach(data -> {
-			data.setPersona(entity);
-		});
-
+	public CalificacionesModel save(@RequestBody CalificacionesModel entity) {
 		return this.service.save(entity);
 	}
 
 	@PutMapping("update")
-	public PersonaModel update(@RequestBody PersonaModel entity) {
+	public CalificacionesModel update(@RequestBody CalificacionesModel entity) {
 		return this.service.update(entity);
 	}
 
 	@DeleteMapping("delete")
-	public PersonaModel delete(@RequestHeader(required = true) Integer id) {
-		PersonaModel entityDelete = this.service.findById(id);
+	public CalificacionesModel delete(@RequestHeader(required = true) Integer id) {
+		CalificacionesModel entityDelete = this.service.findById(id);
 		this.service.delete(id);
 		return entityDelete;
 	}
